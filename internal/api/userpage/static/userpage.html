@@ -1,0 +1,79 @@
+<!-- @format -->
+
+{{define "userpage"}}
+
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<meta property="og:title" content="Pay to {{.Username}}@{{.BotName}}">
+<meta property="og:site_name" content="{{.Username}}@{{.BotName}}">
+<meta property="og:description" content="Send bitcoin to {{.Username}} over Lightning.">
+<meta property="og:type" content="article" />
+<meta property="og:image" content="{{.Image}}">
+<meta property="og:url" content="https://{{.BotName}}/@{{.Username}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Pay to {{.Username}}@{{.BotName}}">
+<meta name="lightning" content="lnurlp:{{.Username}}@{{.BotName}}"/>
+
+<title>{{.Username}}@{{.BotName}}</title>
+<script src="https://unpkg.com/kjua@0.6.0/dist/kjua.min.js"></script>
+<style>
+  body {
+    background: rgb(36,71,247);
+    background: radial-gradient(circle, rgba(36,71,247,1) 0%, rgba(249,42,84,1) 100%);
+    margin: auto;
+    text-align: center;
+    font-family: monospace;
+    width: 600px;
+    color: #f3f3f3c5 !important;
+  }
+  .image-cropper {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+  #photo {
+    margin-top: 50px;
+    width: 100px;
+  }
+  .white {
+    color: #f3f3f3c5;
+  }
+  .sm {
+    color: #f3f3f3c5;
+    font-size: 1rem;
+  }
+  #qr {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  #invoice {
+    margin: 10px;
+    padding-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 1.5rem;
+  }
+</style>
+
+<a href="https://t.me/{{.Username}}"><img id="photo" class="image-cropper" src="{{.Image}}"/></a>
+<h1>Pay to <a class="white" href="https://t.me/{{.Username}}">{{.Username}}@{{.BotName}}</a></h1>
+
+<div><a href="lightning:{{.LNURLPay}}" id="qr"></a></div>
+<div class="white" id="invoice">{{.LNURLPay}}</div>
+<div class="sm">Get your own Lightning address here: <a class="sm" href="https://{{.BotName}}">{{.BotName}}</a></div>
+<script>
+  qr.appendChild(
+    kjua({
+      text: invoice.innerHTML,
+      rounded: 50,
+      size: 500,
+      render: 'canvas',
+    })
+  )
+</script>
+
+{{end}}
