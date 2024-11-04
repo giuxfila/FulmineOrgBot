@@ -28,7 +28,7 @@ func New(b *telegram.TipBot) Service {
 }
 
 // const botImage = "https://avatars.githubusercontent.com/u/88730856?v=7"
-const botImage = "https://github.com/giuxfila/FulmineOrgBot/blob/main/resources/fulmineorgbot-logo.png"
+const botImage = "https://raw.githubusercontent.com/giuxfila/FulmineOrgBot/1248e4fe19df37e0f811a67c706ff9279b25d8c4/resources/fulmineorgbot_logo.png"
 
 //go:embed static
 var templates embed.FS
