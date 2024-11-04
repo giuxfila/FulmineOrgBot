@@ -18,7 +18,7 @@ import (
 	tb "gopkg.in/lightningtipbot/telebot.v3"
 )
 
-const queryImage = "https://avatars.githubusercontent.com/u/88730856?v=7"
+const queryImage = "https://raw.githubusercontent.com/giuxfila/FulmineOrgBot/1248e4fe19df37e0f811a67c706ff9279b25d8c4/resources/fulmineorgbot_logo.png"
 
 func (bot TipBot) inlineQueryInstructions(ctx intercept.Context) (intercept.Context, error) {
 	instructions := []struct {
