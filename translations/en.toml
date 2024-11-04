@@ -70,7 +70,7 @@ _The bot's source code is available on Github, if you like the project please co
 
 ⚙️ *Commands*
 */balance* 👑 Check your balance: `/balance`
-*/send* 💸 Send funds to a user: `/send <amount> @user or user@ln.tips [<memo>]`
+*/send* 💸 Send funds to a user: `/send <amount> giuseppe@fulmine.org [<memo>]`
 */invoice* ⚡️ Receive with Lightning: `/invoice <amount> [<memo>]`
 */pay* ⚡️ Pay with Lightning: `/pay <invoice>`
 */donate* ❤️ Donate to the project: `/donate 1000`
