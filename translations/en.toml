@@ -60,7 +60,7 @@ payButtonEmoji = """💸"""
 
 # HELP
 
-helpMessage = """⚡️ *_fulmine LN Wallet_*
+helpMessage = """⚡️ *fulmine LN Wallet*
 _This bot is a Bitcoin Lightning Wallet with which you can receive and send sats via Telegram. To send. The unit of account for these small amount sendings is the Satoshi (sat). 100,000,000 sat = 1 Bitcoin. Type 📚 /basics for more information._
 
 ❤️ *Donate*
