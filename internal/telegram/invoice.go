@@ -135,7 +135,7 @@ func (bot *TipBot) invoiceHandler(ctx intercept.Context) (intercept.Context, err
 	}
 
 	// check for memo in command
-	memo := "Powered by @LightningTipBot"
+	memo := "Powered by @fulmine.org"
 	if len(strings.Split(m.Text, " ")) > 2 {
 		memo = GetMemoFromCommand(m.Text, 2)
 		tag := " (@LightningTipBot)"
