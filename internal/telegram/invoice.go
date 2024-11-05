@@ -138,7 +138,7 @@ func (bot *TipBot) invoiceHandler(ctx intercept.Context) (intercept.Context, err
 	memo := "Powered by @fulmine.org"
 	if len(strings.Split(m.Text, " ")) > 2 {
 		memo = GetMemoFromCommand(m.Text, 2)
-		tag := " (@LightningTipBot)"
+		tag := " (@FulmineOrgBot)"
 		memoMaxLen := 159 - len(tag)
 		if len(memo) > memoMaxLen {
 			memo = memo[:memoMaxLen-len(tag)]
