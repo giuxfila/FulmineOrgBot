@@ -79,7 +79,7 @@ infoYourLightningAddress = """Il tuo indirizzo Lightning è `%s`"""
 basicsMessage = """🧡 *Bitcoin*
 _Bitcoin è la valuta di internet. È una rete libera e decentralizzata a cui tutti possono partecipare, senza una autorità di controllo centrale. Bitcoin è una moneta ma anche un sistema di pagamento più veloce, sicuro e inclusivo del sistema finanziario tradizionale._
 
-🧮 *Economnics*
+🧮 *Economics*
 _La più piccola unità in cui è divisibile un Bitcoin è un Satoshi (sat) e 100,000,000 sat equivalgono a 1 Bitcoin. Esistono solamente 21 milioni di Bitcoin. Il valore di Bitcoin espresso in valuta tradizionale può variare ogni giorno. In ogni caso, se la tua valuta di riferimento è Bitcoin, 1 sat varrà sempre 1 sat._
 
 ⚡️ *Lightning Network*
