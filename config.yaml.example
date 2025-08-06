@@ -12,10 +12,12 @@ bot:
   admin_api_host: localhost:6060
   name: "fulmine.org"
   botadmin: "Giuseppe"
-  authorized_id: "" # the id of your TG profile
+  authorized_ids: 
+    - "0123456789" # the id of your TG profile
+    - "0123456789" # the id of your best friends TG profile (optional)
 telegram:
   message_dispose_duration: 10
-  api_key: "1234"
+  api_key: "1234:AbCD"
 lnbits:
   url: "http://127.0.0.1:5000"
   admin_key: "1234"
@@ -26,12 +28,5 @@ database:
   db_path: "data/bot.db"
   buntdb_path: "data/bunt.db"
   transactions_path: "data/transactions.db"
-  shop_buntdb_path: "data/shop.db"
-  groupsdb_path: "data/groups.db"
-generate:
-  open_ai_bearer_token: "token_here"
-  dalle_key: "asd"
-  dalle_price: 1000
-  worker: 2
 nostr:
   private_key: "hex private key here"

@@ -27,10 +27,9 @@ func New(b *telegram.TipBot) Service {
 	}
 }
 
-// const botImage = "https://avatars.githubusercontent.com/u/88730856?v=7"
 const botImage = "https://raw.githubusercontent.com/giuxfila/FulmineOrgBot/1248e4fe19df37e0f811a67c706ff9279b25d8c4/resources/fulmineorgbot_logo.png"
 
-//go:embed static
+//go:embed static/userpage.html static/webapp.html
 var templates embed.FS
 var userpage_tmpl = template.Must(template.ParseFS(templates, "static/userpage.html"))
 var qr_tmpl = template.Must(template.ParseFS(templates, "static/webapp.html"))
@@ -71,18 +70,26 @@ func (s Service) getTelegramUserPictureURL(username string) (string, error) {
 func (s Service) UserPageHandler(w http.ResponseWriter, r *http.Request) {
 	// https://fulmine.org/@<username>
 	username := strings.ToLower(mux.Vars(r)["username"])
+
+	_, exists := s.bot.UserExistsByTelegramUsername(username)
+	if !exists {
+		http.Error(w, "⚠️ L'utente non è autorizzato ad utilizzare questo wallet", http.StatusNotFound)
+		return
+	}
+
 	callback := fmt.Sprintf("%s/.well-known/lnurlp/%s", internal.Configuration.Bot.LNURLHostName, username)
 	botName := internal.Configuration.Bot.Name
 	botUsername := internal.Configuration.Bot.Username
 	log.Infof("[UserPage] rendering page of %s", username)
+
 	lnurlEncode, err := lnurl.LNURLEncode(callback)
 	if err != nil {
 		log.Errorln("[UserPage]", err)
 		return
 	}
+
 	image, err := s.getTelegramUserPictureURL(username)
 	if err != nil || image == "https://telegram.org/img/t_logo.png" {
-		// replace the default image
 		image = botImage
 	}
 
@@ -96,6 +103,7 @@ func (s Service) UserPageHandler(w http.ResponseWriter, r *http.Request) {
 		log.Errorf("failed to render template")
 	}
 }
+
 
 func (s Service) UserWebAppHandler(w http.ResponseWriter, r *http.Request) {
 	// https://fulmine.org/app/<username>

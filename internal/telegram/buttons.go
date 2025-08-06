@@ -3,7 +3,6 @@ package telegram
 import (
 	"context"
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/giuxfila/FulmineOrgBot/internal"
@@ -35,17 +34,10 @@ var (
 	btnSendMenuEnter = mainMenu.Text(SendMenuCommandEnter)
 )
 
-// Funzione per controllare se l'ID dell'utente è autorizzato
-func isUserAuthorized(userID int64) bool {
-	return strconv.FormatInt(userID, 10) == internal.Configuration.Bot.AuthorizedID
-}
-
 func init() {
-	// Inizializza i pulsanti solo se l'utente è autorizzato
-	// Non possiamo verificare direttamente qui l'ID autorizzato senza avere un ID utente
+	// Initialize buttons only if the user is authorized
 }
 
-// Funzione per impacchettare i pulsanti in righe di lunghezza specificata
 func buttonWrapper(buttons []tb.Btn, markup *tb.ReplyMarkup, length int) []tb.Row {
 	buttonLength := len(buttons)
 	rows := make([]tb.Row, 0)
@@ -66,7 +58,6 @@ func buttonWrapper(buttons []tb.Btn, markup *tb.ReplyMarkup, length int) []tb.Ro
 	return rows
 }
 
-// Aggiunge un link WebApp a un pulsante
 func (bot *TipBot) appendWebAppLinkToButton(btn *tb.Btn, user *lnbits.User) {
 	var url string
 	if len(user.Telegram.Username) > 0 {
@@ -79,7 +70,6 @@ func (bot *TipBot) appendWebAppLinkToButton(btn *tb.Btn, user *lnbits.User) {
 	}
 }
 
-// Aggiorna il pulsante del saldo nel menu principale
 func (bot *TipBot) mainMenuBalanceButtonUpdate(to int64) {
 	var user *lnbits.User
 	var err error
@@ -106,7 +96,6 @@ func (bot *TipBot) mainMenuBalanceButtonUpdate(to int64) {
 	}
 }
 
-// Crea un array di pulsanti per il menu di invio
 func (bot *TipBot) makeContactsButtons(ctx context.Context) []tb.Btn {
 	var records []Transaction
 
@@ -125,7 +114,6 @@ func (bot *TipBot) makeContactsButtons(ctx context.Context) []tb.Btn {
 	return sendToButtons
 }
 
-// Aggiunge il menu principale se l'utente è in chat privata
 func (bot *TipBot) appendMainMenu(to int64, recipient interface{}, options []interface{}) []interface{} {
 	if to > 0 {
 		bot.mainMenuBalanceButtonUpdate(to)
@@ -143,7 +131,7 @@ func (bot *TipBot) appendMainMenu(to int64, recipient interface{}, options []int
 	}
 
 	if to > 0 && appendKeyboard {
-		if isUserAuthorized(to) { // Controlla se l'utente è autorizzato qui
+		if internal.IsAuthorized(to) {
 			options = append(options, mainMenu)
 		}
 	}

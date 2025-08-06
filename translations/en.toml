@@ -58,6 +58,13 @@ infoButtonMessage = """Info"""
 cancelButtonEmoji = """🚫"""
 payButtonEmoji = """💸"""
 
+# SETTINGS
+
+settingsHelp = "📖 Change user settings\n\n`/set unit <BTC|USD|EUR|GBP>` 💶 Change your default currency."
+settingsCurrentCurrency = "🌍 Your current default currency is `%s`"
+settingsInvalidCurrency = "🚫 Invalid currency. Please use one of the following: `BTC`, `USD`, `EUR`"
+settingsUpdatedCurrency = "✅ Your default currency has been updated."
+
 # HELP
 
 helpMessage = """⚡️ *fulmine LN Wallet*
@@ -105,22 +112,11 @@ helpNoUsernameMessage = """👋 Please, set a Telegram username."""
 
 advancedMessage = """%s
 
-👉 *Inline commands*
-*send* 💸 Send sats to chat: `%s send <amount> [<user>] [<memo>]`
-*receive* 🏅 Request a payment: `... receive <amount> [<user>] [<memo>]`
-
-📖 You can use inline commands in every chat, even in private conversations. Wait a second after entering an inline command and *click* the result, don't press enter.
-
 ⚙️ *Advanced commands*
 */transactions* 📊 List transactions
 */link* 🔗 Link your wallet to [BlueWallet](https://bluewallet.io/) or [Zeus](https://zeusln.app/)
 */lnurl* ⚡️ Lnurl receive or pay: `/lnurl` or `/lnurl <lnurl> [memo]`
-*/nostr* 💜 Connect to Nostr: `/nostr`
-*/faucet* 🚰 Create a faucet: `/faucet <capacity> <per_user>`
-*/tipjar* 🍯 Create a tipjar: `/tipjar <capacity> <per_user>`
-*/group* 🎟 Group chat features: `/group`
-*/shop* 🛍 Browse shops: `/shop` or `/shop <user/shop_id>`
-*/generate* 🎆 Generate DALLE-2 images: `/generate <prompt>`"""
+*/nostr* 💜 Connect to Nostr: `/nost`"""
 
 # GENERIC
 enterAmountRangeMessage        = """💯 Enter an amount between %d and %d sat."""
@@ -141,22 +137,6 @@ startNoUsernameMessage    = """☝️ It looks like you don't have a Telegram @u
 
 balanceMessage      = """👑 *Your balance:* %d sat"""
 balanceErrorMessage = """🚫 Could not fetch your balance. Please try again later."""
-
-# TIP
-
-tipDidYouReplyMessage = """Did you reply to a message to tip? To reply to any message, right-click -> Reply on your computer or swipe the message on your phone. If you want to send directly to another user, use the /send command."""
-tipInviteGroupMessage = """ℹ️ By the way, you can invite this bot to any group to start tipping there."""
-tipEnterAmountMessage = """Did you enter an amount?"""
-tipValidAmountMessage = """Did you enter a valid amount?"""
-tipYourselfMessage    = """📖 You can't tip yourself."""
-tipSentMessage        = """💸 %d sat sent to %s."""
-tipReceivedMessage    = """🏅 %s has tipped you %d sat."""
-tipErrorMessage       = """🚫 Tip failed."""
-tipUndefinedErrorMsg  = """please try again later."""
-tipHelpText           = """📖 Oops, that didn't work. %s
-
-*Usage:* `/tip <amount> [<memo>]`
-*Example:* `/tip 1000 Dank meme!`"""
 
 # SEND
 
@@ -275,129 +255,3 @@ apiConnectMessage = """🔗 *Your API keys*
 - *Admin key:* `%s`
 - *Invoice key:* `%s`"""
 apiHiddenMessage               = """🔍 Keys hidden. Enter /api to see them again."""
-
-# FAUCET
-
-inlineQueryFaucetTitle        = """🚰 Create a faucet."""
-inlineQueryFaucetDescription  = """Usage: @%s faucet <capacity> <per_user>"""
-inlineResultFaucetTitle       = """🚰 Create a %d sat faucet."""
-inlineResultFaucetDescription = """👉 Click here to create a faucet in this chat."""
-
-inlineFaucetMessage                     = """Press ✅ to collect %d sat from %s's faucet.
-
-🚰 Remaining: %d/%d sat (given to %d/%d users)
-%s"""
-inlineFaucetEndedMessage                = """🚰 Faucet empty 🍺\n\n🏅 %d sat given to %d users."""
-inlineFaucetAppendMemo                  = """\n✉️ %s"""
-inlineFaucetCreateWalletMessage         = """Chat with %s 👈 to manage your wallet."""
-inlineFaucetCancelledMessage            = """🚫 Faucet cancelled."""
-inlineFaucetInvalidPeruserAmountMessage = """🚫 Peruser amount not divisor of capacity or too low (min 5 sat)."""
-inlineFaucetInvalidAmountMessage        = """🚫 Invalid amount."""
-inlineFaucetSentMessage                 = """🚰 %d sat sent to %s."""
-inlineFaucetReceivedMessage             = """🚰 %s sent you %d sat."""
-inlineFaucetHelpFaucetInGroup           = """Create a faucet in a group with the bot inside or use 👉 inline command (/advanced for more)."""
-inlineFaucetAlreadyTookMessage          = """🚫 You already took from this faucet."""
-inlineFaucetHelpText                    = """📖 Oops, that didn't work. %s
-
-*Usage:* `/faucet <capacity> <per_user>`
-*Example:* `/faucet 210 21`"""
-
-# INLINE SEND
-
-inlineQuerySendTitle            = """💸 Send payment to a chat."""
-inlineQuerySendDescription      = """Usage: @%s send <amount> [<user>] [<memo>]"""
-inlineResultSendTitle           = """💸 Send %d sat."""
-inlineResultSendDescription     = """👉 Click to send %d sat to this chat."""
-
-inlineSendMessage              = """Press ✅ to receive payment from %s.\n\n💸 Amount: %d sat"""
-inlineSendAppendMemo           = """\n✉️ %s"""
-inlineSendUpdateMessageAccept  = """💸 %d sat sent from %s to %s."""
-inlineSendCreateWalletMessage  = """Chat with %s 👈 to manage your wallet."""
-sendYourselfMessage            = """📖 You can't pay to yourself."""
-inlineSendFailedMessage        = """🚫 Send failed."""
-inlineSendInvalidAmountMessage = """🚫 Amount must be larger than 0."""
-inlineSendBalanceLowMessage    = """🚫 Your balance is too low."""
-
-# INLINE RECEIVE
-
-inlineQueryReceiveTitle        = """🏅 Request a payment in a chat."""
-inlineQueryReceiveDescription  = """Usage: @%s receive <amount> [<user>] [<memo>]"""
-inlineResultReceiveTitle       = """🏅 Receive %d sat."""
-inlineResultReceiveDescription = """👉 Click to request a payment of %d sat."""
-
-inlineReceiveMessage             = """Press 💸 to pay to %s.\n\n💸 Amount: %d sat"""
-inlineReceiveAppendMemo          = """\n✉️ %s"""
-inlineReceiveUpdateMessageAccept = """💸 %d sat sent from %s to %s."""
-inlineReceiveCreateWalletMessage = """Chat with %s 👈 to manage your wallet."""
-inlineReceiveYourselfMessage     = """📖 You can't pay to yourself."""
-inlineReceiveFailedMessage       = """🚫 Receive failed."""
-inlineReceiveCancelledMessage    = """🚫 Receive cancelled."""
-
-# TIPJAR
-
-inlineQueryTipjarTitle        = """🍯 Create a tipjar."""
-inlineQueryTipjarDescription  = """Usage: @%s tipjar <capacity> <per_user>"""
-inlineResultTipjarTitle       = """🍯 Create a %d sat tipjar."""
-inlineResultTipjarDescription = """👉 Click here to create a tipjar in this chat."""
-
-inlineTipjarMessage                     = """Press 💸 to *pay %d sat* to this tipjar by %s.
-
-🙏 Given: *%d*/%d sat (by %d users)
-%s"""
-inlineTipjarEndedMessage                = """🍯 %s's tipjar is full ⭐️\n\n🏅 %d sat given by %d users."""
-inlineTipjarAppendMemo                  = """\n✉️ %s"""
-inlineTipjarCancelledMessage            = """🚫 Tipjar cancelled."""
-inlineTipjarInvalidPeruserAmountMessage = """🚫 Peruser amount not divisor of capacity."""
-inlineTipjarInvalidAmountMessage        = """🚫 Invalid amount."""
-inlineTipjarSentMessage                 = """🍯 %d sat sent to %s."""
-inlineTipjarReceivedMessage             = """🍯 %s sent you %d sat."""
-inlineTipjarHelpTipjarInGroup           = """Create a tipjar in a group with the bot inside or use 👉 inline command (/advanced for more)."""
-inlineTipjarHelpText                    = """📖 Oops, that didn't work. %s
-
-*Usage:* `/tipjar <capacity> <per_user>`
-*Example:* `/tipjar 210 21`"""
-
-# GROUP TICKETS
-groupAddGroupHelpMessage            = """📖 Oops, that didn't work. This command only works in a group chat. Only group owners can use this command.\nUsage: `/group add <group_name> [<amount>]`\nExample: `/group add TheBestBitcoinGroup 1000`"""
-groupJoinGroupHelpMessage           = """📖 Oops, that didn't work. Please try again.\nUsage: `/join <group_name>`\nExample: `/join TheBestBitcoinGroup`"""
-groupClickToJoinMessage             = """🎟 [Click here](%s) 👈 to join `%s`."""
-groupTicketIssuedGroupMessage       = """🎟 User %s has received a ticket for this group."""
-groupPayInvoiceMessage              = """🎟 To join the group %s, pay the invoice above."""
-groupBotIsNotAdminMessage           = """🚫 Oops, that didn't work. You must make me admin and grant me rights to invite and ban users."""
-groupNameExists                     = """🚫 A group with this name already exists. Please choose a different name."""
-groupAddedMessagePrivate            = """🎟 Tickets for group `%s` added.\n\nAlias: `%s` Price: %d sat\n\nTo request a ticket for this group, start a private chat with %s and write `/join %s`."""
-groupAddedMessagePublic             = """🎟 Tickets enabled."""
-groupNotFoundMessage                = """🚫 Could not find a group with this name."""
-groupReceiveTicketInvoiceCommission = """🎟 You received *%d sat* (excl. %d sat commission) for a ticket for group `%s` paid by user %s."""
-groupReceiveTicketInvoice           = """🎟 You received *%d sat* for a ticket for group `%s` paid by user %s."""
-commandPrivateMessage               = """Please use this command in a private chat with %s."""
-groupHelpMessage                    = """👥 *Group commands*
-
-🎟 *Public tickets*
-
-For admins (in group chat): `/group ticket <ticket_price>`\nExample: `/group ticket 1000`
-
-🎟 *Private tickets*
-
-Sell tickets for your _private Group_ and get rid of spam bots. 
-
-*Instructions for group admins:*
-
-1) Invite %s to your group and make it admin.
-2) Make your group private.
-3) In your group, you (the group owner) write `/group add <mygroup> [<ticket_price>]`.
-
-_Fees: The bot takes a 10%% +10 sat commission for cheap tickets. If the ticket is >= 1000 sat, the commission is 2%% + 100 sat._
-
-*Instructions for group members:*
-
-To join a group, talk to %s and write in a private message `/join <mygroup>`.
-
-📖 *Usage:*
-For admins (in group chat): `/group add <group_name> [<ticket_price>]`\nExample: `/group add TheBestBitcoinGroup 1000`
-For users (in private chat): `/join <group_name>`\nExample: `/join TheBestBitcoinGroup`"""
-
-# DALLE GENERATE
-generateDalleHelpMessage        = """Generate images using OpenAI DALLE 2.\nUsage: `/generate <prompt>`\nPrice: 1000 sat"""
-generateDallePayInvoiceMessage  = """Pay this invoice to generate four images 👇"""
-generateDalleGeneratingMessage  = """Your images are being generated. Please wait..."""

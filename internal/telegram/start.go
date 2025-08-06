@@ -21,9 +21,8 @@ func (bot TipBot) startHandler(ctx intercept.Context) (intercept.Context, error)
 	if !ctx.Message().Private() {
 		return ctx, errors.Create(errors.NoPrivateChatError)
 	}
-	// Controllo se l'ID è autorizzato
-	if strconv.FormatInt(ctx.Sender().ID, 10) != internal.Configuration.Bot.AuthorizedID { // Converti l'ID a stringa per il confronto
-		return ctx, nil // Non rispondere se non è autorizzato
+	if !internal.IsAuthorized(ctx.Sender().ID) {
+		return ctx, nil
 	}
 	
 	log.Printf("[💬 /start] New user: %s (%d)\n", GetUserStr(ctx.Sender()), ctx.Sender().ID)
@@ -40,7 +39,6 @@ func (bot TipBot) startHandler(ctx intercept.Context) (intercept.Context, error)
 	bot.trySendMessage(ctx.Sender(), Translate(ctx, "startWalletReadyMessage"))
 	bot.balanceHandler(ctx)
 
-	// Invia un avviso all'utente riguardo alla necessità di impostare un nome utente
 	if len(ctx.Sender().Username) == 0 {
 		bot.trySendMessage(ctx.Sender(), Translate(ctx, "startNoUsernameMessage"), tb.NoPreview)
 	}
@@ -55,7 +53,6 @@ func (bot TipBot) initWallet(tguser *tb.User) (*lnbits.User, error) {
 		if err != nil {
 			return user, err
 		}
-		// Imposta l'utente come inizializzato
 		user.Initialized = true
 		err = UpdateUserRecord(user, bot)
 		if err != nil {
@@ -63,8 +60,7 @@ func (bot TipBot) initWallet(tguser *tb.User) (*lnbits.User, error) {
 			return user, err
 		}
 	} else if !user.Initialized {
-		// Aggiorna tutti i tooltip di suggerimento (con il messaggio "inizializzami") che questo utente potrebbe aver ricevuto prima
-		tipTooltipInitializedHandler(user.Telegram, bot)
+//		tipTooltipInitializedHandler(user.Telegram, bot)
 		user.Initialized = true
 		err = UpdateUserRecord(user, bot)
 		if err != nil {
@@ -72,7 +68,6 @@ func (bot TipBot) initWallet(tguser *tb.User) (*lnbits.User, error) {
 			return user, err
 		}
 	} else if user.Initialized {
-		// Il wallet è già stato inizializzato
 		return user, nil
 	} else {
 		err = fmt.Errorf("could not initialize wallet")

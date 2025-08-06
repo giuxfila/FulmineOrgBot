@@ -8,7 +8,7 @@ invoiceCommandStr = """invoice"""
 payCommandStr = """paga"""
 donateCommandStr = """dona"""
 advancedCommandStr = """avanzate"""
-transactionsCommandStr = """traduzioni"""
+transactionsCommandStr = """transazioni"""
 logCommandStr = """log"""
 listCommandStr = """lista"""
 
@@ -53,6 +53,13 @@ settingsButtonMessage = """Impostazioni"""
 saveButtonMessage = """Salva"""
 deleteButtonMessage = """Cancella"""
 infoButtonMessage = """Info"""
+
+# SETTING
+
+settingsHelp = "📖 Cambia le impostazioni utente\n\n`/set unit <BTC|USD|EUR|GBP>` 💶 Cambia la tua valuta predefinita."
+settingsCurrentCurrency = "🌍 La tua valuta predefinita attuale è `%s`"
+settingsInvalidCurrency = "🚫 Valuta non valida. Usa una delle seguenti: `BTC`, `USD`, `EUR`"
+settingsUpdatedCurrency = "✅ La tua valuta predefinita è stata aggiornata."
 
 # HELP
 
@@ -101,19 +108,16 @@ helpNoUsernameMessage = """👋 Per favore imposta un nome utente Telegram."""
 
 advancedMessage = """%s
 
-👉 *Comandi in linea*
-*send* 💸 Invia alcuni sat a una chat: `%s send <ammontare> [<utente>] [<memo>]`
-*receive* 🏅 Richiedi un pagamento: `... receive <ammontare> [<utente>] [<memo>]`
-
-📖 Puoi usare i comandi in linea in ogni chat, anche nelle conversazioni private. Attendi un secondo dopo aver inviato un comando in linea e *clicca* sull'azione desiderata, non premere invio.
-
 ⚙️ *Comandi avanzati*
-*/transactions* 📊 List transactions
+*/transactions* 📊 Lista transazioni
 */link* 🔗 Crea un collegamento al tuo wallet [BlueWallet](https://bluewallet.io/) o [Zeus](https://zeusln.app/)
 */lnurl* ⚡️ Ricevi o paga un Lnurl: `/lnurl` or `/lnurl <lnurl> [memo]`
-*/nostr* 💜 Connect to Nostr: `/nostr`
-*/shop* 🛍 Browse shops: `/shop` or `/shop <user/shop_id>`
-*/generate* 🎆 Generate DALLE-2 images: `/generate <prompt>`"""
+*/nostr* 💜 Connetti Nostr: `/nostr`"""
+
+# SETTINGS_NOSTR
+nostrHelpMessage = """⚙️ Comandi Nostr:
+/nostr add <pubkey> ✅ Aggiungi la tua chiave pubblica Nostr.
+/nostr help 📖 Mostra aiuto."""
 
 # GENERIC
 enterAmountRangeMessage        = """💯 Imposta un ammontare tra %d e %d sat."""
@@ -133,22 +137,6 @@ startNoUsernameMessage    = """☝️ Sembra che tu non abbia un nome utente Tel
 
 balanceMessage      = """👑 *Il tuo saldo è:* %d sat"""
 balanceErrorMessage = """🚫 Non riesco a recupare il tuo saldo. Per favore riprova più tardi."""
-
-# TIP
-
-tipDidYouReplyMessage = """Hai risposto a un messaggio per inviare una mancia? Per rispondere a un messaggio, clicca con il tasto destro -> Rispondi sul tuo computer o fai swipe sul tuo smartphone. Se vuoi inviare direttamente a un altro utente, usa il comando /send."""
-tipInviteGroupMessage = """ℹ️ In ogni caso, puoi invitare questo bot in qualsiasi chat di gruppo per incominciare a inviare mance."""
-tipEnterAmountMessage = """Hai inserito un ammontare?"""
-tipValidAmountMessage = """Hai inserito un ammontare valido?"""
-tipYourselfMessage    = """📖 Non puoi inviare una mancia a te stesso."""
-tipSentMessage        = """💸 %d sat inviati a %s."""
-tipReceivedMessage    = """🏅 %s ti ha inviato una mancia di %d sat."""
-tipErrorMessage       = """🚫 Invio mancia non riuscito."""
-tipUndefinedErrorMsg  = """Per favore riprova più tardi."""
-tipHelpText           = """📖 Ops, non funziona. %s
-
-*Usage:* `/tip <ammontare> [<memo>]`
-*Example:* `/tip 1000 meme fantastico!`"""
 
 # SEND
 
@@ -239,60 +227,15 @@ walletConnectMessage = """🔗 *Collega il tuo wallet*
 
 - *BlueWallet:* Premi *+ (Aggiungi Portafoglio)*, *Importa portafoglio*, *scansionare un codice QR*, e scansiona il codice QR .
 - *Zeus:* Copia la URL qui sotto, premi *Add a new node*, *Import* (incolla la URL), *Save Node Config*."""
-couldNotLinkMessage = """🚫 Non sono riuscito a collegare il tuo wallet. Per favore riprova più tardi."""
+couldNotLinkMessage             = """🚫 Non sono riuscito a collegare il tuo wallet. Per favore riprova più tardi."""
+linkHiddenMessage               = """🔍 Link nascosto. Usa /link per vederlo ancora."""
 
-# FAUCET
+# API
 
-inlineQueryFaucetTitle        = """🚰 Crea una distribuzione di fondi."""
-inlineQueryFaucetDescription  = """Sintassi: @%s faucet <totale> <per_utente>"""
-inlineResultFaucetTitle       = """🚰 Crea una distribuzione per un totale di %d sat."""
-inlineResultFaucetDescription = """👉 Clicca qui per creare una distribuzione di fondi in questa chat."""
+apiConnectMessage = """🔗 *Le tue chiavi API*
 
-inlineFaucetMessage                     = """Premi ✅ per riscuotere %d sat da questa distribuzione da %s.
+⚠️ Non condividere mai queste chiavi con nessuno: potrebbero accedere ai tuoi fondi. Usa /link per collegare il tuo wallet.
 
-🚰 Rimanente: %d/%d sat (distribuiti a %d/%d utenti)
-%s"""
-inlineFaucetEndedMessage                = """🚰 Distribuzione completata 🍺\n\n🏅 %d sat distribuiti a %d utenti."""
-inlineFaucetAppendMemo                  = """\n✉️ %s"""
-inlineFaucetCreateWalletMessage         = """Chatta con %s 👈 per gestire il tuo wallet."""
-inlineFaucetCancelledMessage            = """🚫 Distribuzione cancellata."""
-inlineFaucetInvalidPeruserAmountMessage = """🚫 Ammontare per utente non è una frazione intera del totale."""
-inlineFaucetInvalidAmountMessage        = """🚫 Ammontare non valido."""
-inlineFaucetSentMessage                 = """🚰 %d sat inviati a %s."""
-inlineFaucetReceivedMessage             = """🚰 %s ti ha inviato %d sat."""
-inlineFaucetHelpFaucetInGroup           = """Crea una distribuzione in un gruppo in cui sia presente il bot oppure usa il 👉 comando in linea (/advanced per ulteriori funzionalità)."""
-inlineFaucetHelpText                    = """📖 Ops, non ha funzionato. %s
-
-*Sintassi:* `/faucet <totale> <per_utente>`
-*Esempio:* `/faucet 210 21`"""
-
-# INLINE SEND
-
-inlineQuerySendTitle            = """💸 Invia pagamento in una chat."""
-inlineQuerySendDescription      = """Sintassi: @%s send <ammontare> [<utente>] [<memo>]"""
-inlineResultSendTitle           = """💸 Invio %d sat."""
-inlineResultSendDescription     = """👉 Clicca per inviare %d sat in questa chat."""
-
-inlineSendMessage              = """Premi ✅ per ricevere un pagamento da %s.\n\n💸 Ammontare: %d sat"""
-inlineSendAppendMemo           = """\n✉️ %s"""
-inlineSendUpdateMessageAccept  = """💸 %d sat inviati da %s a %s."""
-inlineSendCreateWalletMessage  = """Chatta con %s 👈 per gestire il tuo wallet."""
-sendYourselfMessage            = """📖 Non puoi inviare un pagamento a te stesso."""
-inlineSendFailedMessage        = """🚫 Invio non riuscito."""
-inlineSendInvalidAmountMessage = """🚫 L'ammontare deve essere maggiore di 0."""
-inlineSendBalanceLowMessage    = """🚫 Il tuo saldo è insufficiente (%d sat)."""
-
-# INLINE RECEIVE
-
-inlineQueryReceiveTitle        = """🏅 Richiedi un pagamento in una chat."""
-inlineQueryReceiveDescription  = """Sintassi: @%s receive <ammontare> [<utente>] [<memo>]"""
-inlineResultReceiveTitle       = """🏅 Ricevi %d sat."""
-inlineResultReceiveDescription = """👉 Clicca per richiedere un pagamento di %d sat."""
-
-inlineReceiveMessage             = """Premi 💸 per inviare un pagamento a %s.\n\n💸 Ammontare: %d sat"""
-inlineReceiveAppendMemo          = """\n✉️ %s"""
-inlineReceiveUpdateMessageAccept = """💸 %d sat inviati da %s a %s."""
-inlineReceiveCreateWalletMessage = """Chatta con %s 👈 per gestire il tuo wallet."""
-inlineReceiveYourselfMessage     = """📖 Non puoi inviare un pagamento a te stesso."""
-inlineReceiveFailedMessage       = """🚫 Pagamento non riuscito."""
-inlineReceiveCancelledMessage    = """🚫 Pagamento cancellato."""
+- *Chiave Admin:* `%s`
+- *Chiave Invoice:* `%s`"""
+apiHiddenMessage = """🔍 Chiavi nascoste. Digita /api per visualizzarle di nuovo."""

@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"net/url"
+        "strconv"
 	"strings"
 
 	"github.com/jinzhu/configor"
@@ -14,7 +15,7 @@ var Configuration = struct {
 	Telegram TelegramConfiguration `yaml:"telegram"`
 	Database DatabaseConfiguration `yaml:"database"`
 	Lnbits   LnbitsConfiguration   `yaml:"lnbits"`
-	Generate GenerateConfiguration `yaml:"generate"`
+//	Generate GenerateConfiguration `yaml:"generate"`
 	Nostr    NostrConfiguration    `yaml:"nostr"`
 }{}
 
@@ -22,12 +23,12 @@ type NostrConfiguration struct {
 	PrivateKey string `yaml:"private_key"`
 }
 
-type GenerateConfiguration struct {
-	OpenAiBearerToken string `yaml:"open_ai_bearer_token"`
-	DalleKey          string `yaml:"dalle_key"`
-	DallePrice        int64  `yaml:"dalle_price"`
-	Worker            int    `yaml:"worker"`
-}
+//type GenerateConfiguration struct {
+//	OpenAiBearerToken string `yaml:"open_ai_bearer_token"`
+//	DalleKey          string `yaml:"dalle_key"`
+//	DallePrice        int64  `yaml:"dalle_price"`
+//	Worker            int    `yaml:"worker"`
+//}
 
 type SocksConfiguration struct {
 	Host     string `yaml:"host"`
@@ -47,7 +48,7 @@ type BotConfiguration struct {
 	Name           string              `yaml:"name"`
 	Username       string              `yaml:"username"`
 	Botadmin       string              `yaml:"botadmin"`
-        AuthorizedID   string              `yaml:"authorized_id"`
+        AuthorizedIDs  []string              `yaml:"authorized_ids"`
 }
 
 type TelegramConfiguration struct {
@@ -56,10 +57,8 @@ type TelegramConfiguration struct {
 }
 type DatabaseConfiguration struct {
 	DbPath           string `yaml:"db_path"`
-	ShopBuntDbPath   string `yaml:"shop_buntdb_path"`
 	BuntDbPath       string `yaml:"buntdb_path"`
 	TransactionsPath string `yaml:"transactions_path"`
-	GroupsDbPath     string `yaml:"groupsdb_path"`
 }
 
 type LnbitsConfiguration struct {
@@ -106,4 +105,14 @@ func checkLnbitsConfiguration() {
 			Configuration.Lnbits.LnbitsPublicUrl = Configuration.Lnbits.LnbitsPublicUrl + "/"
 		}
 	}
+}
+
+func IsAuthorized(userID int64) bool {
+	idStr := strconv.FormatInt(userID, 10)
+	for _, id := range Configuration.Bot.AuthorizedIDs {
+		if id == idStr {
+			return true
+		}
+	}
+	return false
 }

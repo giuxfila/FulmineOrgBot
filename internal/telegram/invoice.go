@@ -37,10 +37,8 @@ var InvoiceCallback InvoiceEventCallback
 func initInvoiceEventCallbacks(bot *TipBot) {
 	InvoiceCallback = InvoiceEventCallback{
 		InvoiceCallbackGeneric:         EventHandler{Function: bot.notifyInvoiceReceivedEvent, Type: EventTypeInvoice},
-		InvoiceCallbackInlineReceive:   EventHandler{Function: bot.inlineReceiveEvent, Type: EventTypeInvoice},
 		InvoiceCallbackLNURLPayReceive: EventHandler{Function: bot.lnurlReceiveEvent, Type: EventTypeInvoice},
 		InvoiceCallbackSatdressProxy:   EventHandler{Function: bot.satdressProxyRelayPaymentHandler, Type: EventTypeInvoice},
-		InvoiceCallbackGenerateDalle:   EventHandler{Function: bot.generateDalleImages, Type: EventTypeInvoice},
 	}
 }
 
@@ -48,12 +46,8 @@ type InvoiceEventKey int
 
 const (
 	InvoiceCallbackGeneric = iota + 1
-	InvoiceCallbackInlineReceive
 	InvoiceCallbackLNURLPayReceive
-	InvoiceCallbackGroupTicket
 	InvoiceCallbackSatdressProxy
-	InvoiceCallbackGenerateDalle
-	InvoiceCallbackPayJoinTicket
 )
 
 const (

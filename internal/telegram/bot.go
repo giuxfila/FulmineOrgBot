@@ -51,7 +51,6 @@ func NewBot() TipBot {
 		DB:       dbs,
 		Client:   lnbits.NewClient(internal.Configuration.Lnbits.AdminKey, internal.Configuration.Lnbits.Url),
 		Bunt:     createBunt(internal.Configuration.Database.BuntDbPath),
-		ShopBunt: createBunt(internal.Configuration.Database.ShopBuntDbPath),
 		Telegram: newTelegramBot(),
 		Cache:    Cache{GoCacheStore: gocacheStore},
 	}
@@ -135,7 +134,6 @@ func (bot *TipBot) Start() {
 	// start the telegram bot
 	go bot.Telegram.Start()
 
-	//DA ELIMINARE go bot.restartPersistedTickets()
 	// gracefully shutdown
 	exit := make(chan os.Signal, 1) // we need to reserve to buffer size 1, so the notifier are not blocked
 	// we need to catch SIGTERM and SIGSTOP

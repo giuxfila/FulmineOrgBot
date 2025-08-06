@@ -4,22 +4,22 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8" />
-<meta property="og:title" content="Pay to {{.Username}}@{{.BotName}}">
+<meta property="og:title" content="Paga {{.Username}}@{{.BotName}}">
 <meta property="og:site_name" content="{{.Username}}@{{.BotName}}">
 <meta property="og:description" content="Send bitcoin to {{.Username}} over Lightning.">
 <meta property="og:type" content="article" />
 <meta property="og:image" content="{{.Image}}">
 <meta property="og:url" content="https://{{.BotName}}/@{{.Username}}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image:alt" content="Pay to {{.Username}}@{{.BotName}}">
+<meta name="twitter:image:alt" content="Paga {{.Username}}@{{.BotName}}">
 <meta name="lightning" content="lnurlp:{{.Username}}@{{.BotName}}"/>
 
 <title>{{.Username}}@{{.BotName}}</title>
 <script src="https://unpkg.com/kjua@0.6.0/dist/kjua.min.js"></script>
 <style>
   body {
-    background: rgb(36,71,247);
-    background: radial-gradient(circle, rgba(36,71,247,1) 0%, rgba(249,42,84,1) 100%);
+    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjlsaGd5dmVuYmhqc3dvYmw3Zmk3a2lrdjJ6djh0ZnRsZnA0M3dyayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYw0HS5w3vwDZi8/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
     margin: auto;
     text-align: center;
     font-family: monospace;
@@ -60,11 +60,10 @@
 </style>
 
 <a href="https://t.me/{{.Username}}"><img id="photo" class="image-cropper" src="{{.Image}}"/></a>
-<h1>Pay to <a class="white" href="https://t.me/{{.Username}}">{{.Username}}@{{.BotName}}</a></h1>
+<h1>Paga <a class="white" href="https://t.me/{{.Username}}">{{.Username}}@{{.BotName}}</a></h1>
 
 <div><a href="lightning:{{.LNURLPay}}" id="qr"></a></div>
 <div class="white" id="invoice">{{.LNURLPay}}</div>
-<div class="sm">Get your own Lightning address here: <a class="sm" href="https://{{.BotName}}">{{.BotName}}</a></div>
 <script>
   qr.appendChild(
     kjua({

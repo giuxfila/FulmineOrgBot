@@ -76,13 +76,13 @@ func (txlist *TransactionsList) printTransactions(ctx intercept.Context) string 
 
 var (
 	transactionsMeno           = &tb.ReplyMarkup{ResizeKeyboard: true}
-//ELIMINARE	btnLeftTransactionsButton  = inlineTipjarMenu.Data("◀️", "left_transactions")
-//ELIMINARE	btnRightTransactionsButton = inlineTipjarMenu.Data("▶️", "right_transactions")
+	btnLeftTransactionsButton  = transactionsMeno.Data("◀️", "left_transactions")
+        btnRightTransactionsButton = transactionsMeno.Data("▶️", "right_transactions")
 )
 
 func (bot *TipBot) makeTransactionsKeyboard(ctx intercept.Context, txlist TransactionsList) *tb.ReplyMarkup {
-	leftTransactionsButton := transactionsMeno.Data("←", "left_transactions", txlist.ID)
-	rightTransactionsButton := transactionsMeno.Data("→", "right_transactions", txlist.ID)
+	leftTransactionsButton := transactionsMeno.Data("ᐊ", "left_transactions", txlist.ID)
+	rightTransactionsButton := transactionsMeno.Data("ᐅ", "right_transactions", txlist.ID)
 
 	if txlist.CurrentPage == 0 {
 		transactionsMeno.Inline(

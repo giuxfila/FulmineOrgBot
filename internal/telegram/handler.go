@@ -15,7 +15,6 @@ type InterceptionWrapper struct {
 	Interceptor *Interceptor
 }
 
-// registerTelegramHandlers will register all Telegram handlers.
 func (bot TipBot) registerTelegramHandlers() {
 	telegramHandlerRegistration.Do(func() {
 		// Set up handlers
@@ -99,22 +98,6 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 				},
 			},
 		},
-		// {
-		// 	Endpoints: []interface{}{"/generate"},
-		// 	Handler:   bot.generateImages,
-		// 	Interceptor: &Interceptor{
-		// 		Before: []intercept.Func{
-		// 			bot.requirePrivateChatInterceptor,
-		// 			bot.localizerInterceptor,
-		// 			bot.logMessageInterceptor,
-		// 			bot.loadUserInterceptor,
-		// 			bot.lockInterceptor,
-		// 		},
-		// 		OnDefer: []intercept.Func{
-		// 			bot.unlockInterceptor,
-		// 		},
-		// 	},
-		// },
 		{
 			Endpoints: []interface{}{"/pay"},
 			Handler:   bot.payHandler,
@@ -213,53 +196,6 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 			},
 		},
 		{
-			Endpoints: []interface{}{"/shops"},
-			Handler:   bot.shopsHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.logMessageInterceptor,
-					bot.requireUserInterceptor,
-					bot.loadUserInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{"/shop"},
-			Handler:   bot.shopHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.logMessageInterceptor,
-					bot.requireUserInterceptor,
-					bot.loadUserInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// {
-		// 	Endpoints: []interface{}{"/gpt", "/chat"},
-		// 	Handler:   bot.gptHandler,
-		// 	Interceptor: &Interceptor{
-
-		// 		Before: []intercept.Func{
-		// 			bot.localizerInterceptor,
-		// 			bot.logMessageInterceptor,
-		// 			bot.requireUserInterceptor,
-		// 			bot.lockInterceptor,
-		// 		},
-		// 		OnDefer: []intercept.Func{
-		// 			bot.unlockInterceptor,
-		// 		},
-		// 	},
-		// },
-		{
 			Endpoints: []interface{}{"/balance", &btnBalanceMainMenu},
 			Handler:   bot.balanceHandler,
 			Interceptor: &Interceptor{
@@ -310,25 +246,6 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 				},
 			},
 		},
-		// previously, this was the send menu but it
-		// was replaced with the webapp
-		// {
-		// 	Endpoints: []interface{}{&btnWebAppMainMenu},
-		// 	Handler:   bot.keyboardSendHandler,
-		// 	Interceptor: &Interceptor{
-
-		// 		Before: []intercept.Func{
-		// 			bot.localizerInterceptor,
-		// 			bot.logMessageInterceptor,
-		// 			bot.requireUserInterceptor,
-		// 			bot.loadReplyToInterceptor,
-		// 			bot.lockInterceptor,
-		// 		},
-		// 		OnDefer: []intercept.Func{
-		// 			bot.unlockInterceptor,
-		// 		},
-		// 	},
-		// },
 		{
 			Endpoints: []interface{}{"/transactions"},
 			Handler:   bot.transactionsHandler,
@@ -340,53 +257,38 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 					bot.requireUserInterceptor,
 				}},
 		},
-//ee		{
-//ee			Endpoints: []interface{}{&btnLeftTransactionsButton},
-//ee			Handler:   bot.transactionsScrollLeftHandler,
-//ee			Interceptor: &Interceptor{
-//ee
-//ee				Before: []intercept.Func{
-//ee					bot.localizerInterceptor,
-//ee					bot.loadUserInterceptor,
-//ee					bot.answerCallbackInterceptor,
-//ee					bot.lockInterceptor,
-//ee				},
-//ee				OnDefer: []intercept.Func{
-//ee					bot.unlockInterceptor,
-//ee				},
-//ee			},
-//ee		},
-//ee		{
-//ee			Endpoints: []interface{}{&btnRightTransactionsButton},
-//ee			Handler:   bot.transactionsScrollRightHandler,
-//ee			Interceptor: &Interceptor{
-//ee
-//ee				Before: []intercept.Func{
-//ee					bot.localizerInterceptor,
-//ee					bot.loadUserInterceptor,
-//ee					bot.answerCallbackInterceptor,
-//ee					bot.lockInterceptor,
-//ee				},
-//ee				OnDefer: []intercept.Func{
-//ee					bot.unlockInterceptor,
-//ee				},
-//ee			},
-//ee		},
-//ee		{
-//			Endpoints: []interface{}{"/tipjar", "/spendendose"},
-//ee			Handler:   bot.tipjarHandler,
-//			Interceptor: &Interceptor{
-//				Before: []intercept.Func{
-//					bot.localizerInterceptor,
-//					bot.logMessageInterceptor,
-//					bot.requireUserInterceptor,
-//					bot.lockInterceptor,
-//				},
-//el				OnDefer: []intercept.Func{
-//el					bot.unlockInterceptor,
-//el				},
-//el			},
-//el		},
+		{
+			Endpoints: []interface{}{&btnLeftTransactionsButton},
+			Handler:   bot.transactionsScrollLeftHandler,
+			Interceptor: &Interceptor{
+
+				Before: []intercept.Func{
+					bot.localizerInterceptor,
+					bot.loadUserInterceptor,
+					bot.answerCallbackInterceptor,
+					bot.lockInterceptor,
+				},
+				OnDefer: []intercept.Func{
+					bot.unlockInterceptor,
+				},
+			},
+		},
+		{
+			Endpoints: []interface{}{&btnRightTransactionsButton},
+			Handler:   bot.transactionsScrollRightHandler,
+			Interceptor: &Interceptor{
+
+				Before: []intercept.Func{
+					bot.localizerInterceptor,
+					bot.loadUserInterceptor,
+					bot.answerCallbackInterceptor,
+					bot.lockInterceptor,
+				},
+				OnDefer: []intercept.Func{
+					bot.unlockInterceptor,
+				},
+			},
+		},
 		{
 			Endpoints: []interface{}{"/help", &btnHelpMainMenu},
 			Handler:   bot.helpHandler,
@@ -542,24 +444,24 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 				},
 			},
 		},
-		{
-			Endpoints: []interface{}{tb.OnQuery},
-			Handler:   bot.anyQueryHandler,
-			Interceptor: &Interceptor{
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.requireUserInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				},
-			},
-		},
-		{
-			Endpoints: []interface{}{tb.OnInlineResult},
-			Handler:   bot.anyChosenInlineHandler,
-		},
+//		{
+//			Endpoints: []interface{}{tb.OnQuery},
+//			Handler:   bot.anyQueryHandler,
+//			Interceptor: &Interceptor{
+//				Before: []intercept.Func{
+//					bot.localizerInterceptor,
+//					bot.requireUserInterceptor,
+//					bot.lockInterceptor,
+//				},
+//				OnDefer: []intercept.Func{
+//					bot.unlockInterceptor,
+//				},
+//			},
+//		},
+//		{
+//			Endpoints: []interface{}{tb.OnInlineResult},
+//			Handler:   bot.anyChosenInlineHandler,
+//		},
 		{
 			Endpoints: []interface{}{&btnPay},
 			Handler:   bot.confirmPayHandler,
@@ -623,103 +525,7 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 					bot.unlockInterceptor,
 				},
 			},
-		},
-		{
-			Endpoints: []interface{}{&btnAcceptInlineSend},
-			Handler:   bot.acceptInlineSendHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				},
-			},
-		},
-		{
-			Endpoints: []interface{}{&btnCancelInlineSend},
-			Handler:   bot.cancelInlineSendHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.requireUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				},
-			},
-		},
-		{
-			Endpoints: []interface{}{&btnAcceptInlineReceive},
-			Handler:   bot.acceptInlineReceiveHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				},
-			},
-		},
-		{
-			Endpoints: []interface{}{&btnCancelInlineReceive},
-			Handler:   bot.cancelInlineReceiveHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.requireUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				},
-			},
-		},
-//ee		{
-//ee			Endpoints: []interface{}{&btnAcceptInlineTipjar},
-//ee			Handler:   bot.acceptInlineTipjarHandler,
-//ee			Interceptor: &Interceptor{
-//ee
-//ee				Before: []intercept.Func{
-//ee					bot.localizerInterceptor,
-//ee					bot.requireUserInterceptor,
-//ee					bot.answerCallbackInterceptor,
-//ee					bot.lockInterceptor,
-//ee				},
-//ee				OnDefer: []intercept.Func{
-//ee					bot.unlockInterceptor,
-//ee				},
-//ee			},
-//ee		},
-//		{
-//			Endpoints: []interface{}{&btnCancelInlineTipjar},
-// 			Handler:   bot.cancelInlineTipjarHandler,
-// 			Interceptor: &Interceptor{
-// 
-// 				Before: []intercept.Func{
-// 					bot.localizerInterceptor,
-// 					bot.requireUserInterceptor,
-// 					bot.answerCallbackInterceptor,
-// 					bot.lockInterceptor,
-// 				},
-// 				OnDefer: []intercept.Func{
-// 					bot.unlockInterceptor,
-// 				},
-// 			},
-// 		},
+		},,
 		{
 			Endpoints: []interface{}{&btnWithdraw},
 			Handler:   bot.confirmWithdrawHandler,
@@ -783,406 +589,6 @@ func (bot TipBot) getHandler() []InterceptionWrapper {
 					bot.unlockInterceptor,
 				},
 			},
-		},
-		{
-			Endpoints: []interface{}{&shopNewShopButton},
-			Handler:   bot.shopNewShopHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopAddItemButton},
-			Handler:   bot.shopNewItemHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopBuyitemButton},
-			Handler:   bot.shopGetItemFilesHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopNextitemButton},
-			Handler:   bot.shopNextItemButtonHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&browseShopButton},
-			Handler:   bot.shopsBrowser,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopSelectButton},
-			Handler:   bot.shopSelect,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that opens selection of shops to delete
-		{
-			Endpoints: []interface{}{&shopDeleteShopButton},
-			Handler:   bot.shopsDeleteShopBrowser,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that selects which shop to delete
-		{
-			Endpoints: []interface{}{&shopDeleteSelectButton},
-			Handler:   bot.shopSelectDelete,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that opens selection of shops to get links of
-		{
-			Endpoints: []interface{}{&shopLinkShopButton},
-			Handler:   bot.shopsLinkShopBrowser,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that selects which shop to link
-		{
-			Endpoints: []interface{}{&shopLinkSelectButton},
-			Handler:   bot.shopSelectLink,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that opens selection of shops to rename
-		{
-			Endpoints: []interface{}{&shopRenameShopButton},
-			Handler:   bot.shopsRenameShopBrowser,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that selects which shop to rename
-		{
-			Endpoints: []interface{}{&shopRenameSelectButton},
-			Handler:   bot.shopSelectRename,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that opens shops settings buttons view
-		{
-			Endpoints: []interface{}{&shopSettingsButton},
-			Handler:   bot.shopSettingsHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that lets user enter description for shops
-		{
-			Endpoints: []interface{}{&shopDescriptionShopButton},
-			Handler:   bot.shopsDescriptionHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// button that resets user shops
-		{
-			Endpoints: []interface{}{&shopResetShopButton},
-			Handler:   bot.shopsResetHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopResetShopAskButton},
-			Handler:   bot.shopsAskDeleteAllShopsHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopPrevitemButton},
-			Handler:   bot.shopPrevItemButtonHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopShopsButton},
-			Handler:   bot.shopsHandlerCallback,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		// shop item settings buttons
-		{
-			Endpoints: []interface{}{&shopItemSettingsButton},
-			Handler:   bot.shopItemSettingsHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemSettingsBackButton},
-			Handler:   bot.displayShopItemHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemDeleteButton},
-			Handler:   bot.shopItemDeleteHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemPriceButton},
-			Handler:   bot.shopItemPriceHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemTitleButton},
-			Handler:   bot.shopItemTitleHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemAddFileButton},
-			Handler:   bot.shopItemAddItemHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemBuyButton},
-			Handler:   bot.shopConfirmBuyHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
-		},
-		{
-			Endpoints: []interface{}{&shopItemCancelBuyButton},
-			Handler:   bot.displayShopItemHandler,
-			Interceptor: &Interceptor{
-
-				Before: []intercept.Func{
-					bot.localizerInterceptor,
-					bot.loadUserInterceptor,
-					bot.answerCallbackInterceptor,
-					bot.lockInterceptor,
-				},
-				OnDefer: []intercept.Func{
-					bot.unlockInterceptor,
-				}},
 		},
 	}
 }
